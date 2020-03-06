@@ -2,9 +2,11 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Models
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 
+// GET - GET Users
 const getUsers = async (req, res, next) => {
   let users;
   try {
@@ -19,6 +21,7 @@ const getUsers = async (req, res, next) => {
   res.json({ users: users.map(user => user.toObject({ getters: true })) });
 };
 
+// POST - Signup & Create New User
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -81,7 +84,7 @@ const signup = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
-      'supersecret_dont_share',
+      process.env.JWT_KEY,
       { expiresIn: '1h' }
     );
   } catch (err) {
@@ -97,6 +100,7 @@ const signup = async (req, res, next) => {
     .json({ userId: createdUser.id, email: createdUser.email, token: token });
 };
 
+// Login
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -143,7 +147,7 @@ const login = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      'supersecret_dont_share',
+      process.env.JWT_KEY,
       { expiresIn: '1h' }
     );
   } catch (err) {
