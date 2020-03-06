@@ -13,7 +13,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "static": "serve -s -l 3000 build"
   },
   "eslintConfig": {
     "extends": "react-app"
