@@ -1,3 +1,4 @@
+// Extends the Express error model
 class HttpError extends Error {
   constructor(message, errorCode) {
     super(message);

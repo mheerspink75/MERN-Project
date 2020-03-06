@@ -11,9 +11,10 @@ const User = require("../models/user");
 // Get coordinates from Google Geocoding
 const getCoordsForAddress = require("../util/location");
 
+// GET - GET Place by PlaceID
 const getPlaceById = async (req, res, next) => {
   const placeId = req.params.pid;
-
+  // Check if PlaceID Exists
   let place;
   try {
     place = await Place.findById(placeId);
@@ -32,14 +33,14 @@ const getPlaceById = async (req, res, next) => {
     );
     return next(error);
   }
-
+  // Response
   res.json({ place: place.toObject({ getters: true }) });
 };
 
-// GET - GET Place by Place ID
+// GET - GET Place by UserID
 const getPlacesByUserId = async (req, res, next) => {
   const userId = req.params.uid;
-
+  // Check if User's Place Exists
   let userWithPlaces;
   try {
     userWithPlaces = await User.findById(userId).populate("places");
@@ -56,7 +57,7 @@ const getPlacesByUserId = async (req, res, next) => {
       new HttpError("Could not find places for the provided user id.", 404)
     );
   }
-
+  // Response
   res.json({
     places: userWithPlaces.places.map(place =>
       place.toObject({ getters: true })
@@ -66,6 +67,7 @@ const getPlacesByUserId = async (req, res, next) => {
 
 // POST - CREATE Place
 const createPlace = async (req, res, next) => {
+  // Check Validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
@@ -74,14 +76,14 @@ const createPlace = async (req, res, next) => {
   }
 
   const { title, description, address } = req.body;
-
+  // Get Coordinates from Google Geocoding
   let coordinates;
   try {
     coordinates = await getCoordsForAddress(address);
   } catch (error) {
     return next(error);
   }
-
+  // Create New Place
   const createdPlace = new Place({
     title,
     description,
@@ -90,7 +92,7 @@ const createPlace = async (req, res, next) => {
     image: req.file.path,
     creator: req.userData.userId
   });
-
+  // Check UserID 
   let user;
   try {
     user = await User.findById(req.userData.userId);
@@ -101,14 +103,14 @@ const createPlace = async (req, res, next) => {
     );
     return next(error);
   }
-
+  
   if (!user) {
     const error = new HttpError("Could not find user for provided id.", 404);
     return next(error);
   }
 
   console.log(user);
-
+  // POST Created Place to MongoDB Atlas
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -123,12 +125,13 @@ const createPlace = async (req, res, next) => {
     );
     return next(error);
   }
-
+  // Response
   res.status(201).json({ place: createdPlace });
 };
 
 // PATCH - UPDATE Place
 const updatePlace = async (req, res, next) => {
+  // Check Validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
@@ -139,6 +142,7 @@ const updatePlace = async (req, res, next) => {
   const { title, description } = req.body;
   const placeId = req.params.pid;
 
+  // Check User Authorized to Edit Place
   let place;
   try {
     place = await Place.findById(placeId);
@@ -158,6 +162,7 @@ const updatePlace = async (req, res, next) => {
   place.title = title;
   place.description = description;
 
+  // Save Edited Place
   try {
     await place.save();
   } catch (err) {
@@ -167,14 +172,14 @@ const updatePlace = async (req, res, next) => {
     );
     return next(error);
   }
-
+  // Response
   res.status(200).json({ place: place.toObject({ getters: true }) });
 };
 
 // DELETE - DELETE Place
 const deletePlace = async (req, res, next) => {
   const placeId = req.params.pid;
-
+  // Check if Place Exists
   let place;
   try {
     place = await Place.findById(placeId).populate("creator");
@@ -190,7 +195,7 @@ const deletePlace = async (req, res, next) => {
     const error = new HttpError("Could not find place for this id.", 404);
     return next(error);
   }
-
+  // Check if User is Authorized to DELETE Place
   if (place.creator.id !== req.userData.userId) {
     const error = new HttpError(
       "You are not allowed to delete this place.",
@@ -200,7 +205,7 @@ const deletePlace = async (req, res, next) => {
   }
 
   const imagePath = place.image;
-
+  // DELETE Place from MongoDB Atlas
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -219,7 +224,7 @@ const deletePlace = async (req, res, next) => {
   fs.unlink(imagePath, err => {
     console.log(err);
   });
-
+  // Response
   res.status(200).json({ message: "Deleted place." });
 };
 

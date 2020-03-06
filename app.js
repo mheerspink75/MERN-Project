@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 // Routes
 const placesRoutes = require("./routes/places-routes");
 const usersRoutes = require("./routes/users-routes");
+
+// Models
 const HttpError = require("./models/http-error");
 
 const app = express();

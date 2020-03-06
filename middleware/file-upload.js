@@ -1,12 +1,14 @@
 const multer = require('multer');
 const { v1: uuidv1 } = require('uuid');
 
+// File Type
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpeg',
   'image/jpg': 'jpg'
 };
 
+// File Upload
 const fileUpload = multer({
   limits: 500000,
   storage: multer.diskStorage({

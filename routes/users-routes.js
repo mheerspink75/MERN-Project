@@ -6,12 +6,15 @@ const fileUpload = require('../middleware/file-upload');
 
 const router = express.Router();
 
+// GET - GET Users
 router.get('/', usersController.getUsers);
 
+// POST - POST Signup
 router.post(
   '/signup',
   fileUpload.single('image'),
   [
+    // Express-validator Check
     check('name')
       .not()
       .isEmpty(),
@@ -23,6 +26,7 @@ router.post(
   usersController.signup
 );
 
+// POST - POST Login 
 router.post('/login', usersController.login);
 
 module.exports = router;

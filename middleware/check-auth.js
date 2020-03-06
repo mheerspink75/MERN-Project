@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 
+// JWT Authentication
 module.exports = (req, res, next) => {
   if (req.method === 'OPTIONS') {
     return next();
