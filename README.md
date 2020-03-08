@@ -15,7 +15,7 @@ Full-Stack MERN Photo-Mapping application combining Create React App frontend wi
 
 ---
 
-**Install instructions**
+**Install instructions:**
 
 **1.**  Clone the repoistory
 ```
