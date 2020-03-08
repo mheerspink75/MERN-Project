@@ -60,12 +60,14 @@ REACT_APP_ASSET_URL=http://localhost:5000
 ```bash
 # Run the front end and backend dev servers concurrently
 npm run dev
-
+```
+**10.** Or, run the frontend and backend servers individually...
+```bash
 # Run just the backend dev server
 npm run server
 
 # Run just the frontend dev server
-npm run client
+cd client && npm run client
 
 # Run just the frontend build folder
 cd client && npm run build && npm run static
