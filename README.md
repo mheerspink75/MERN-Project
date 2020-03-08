@@ -67,7 +67,7 @@ npm run server
 # Run just the frontend dev server
 npm run client
 
-# Run the frontend build folder
+# Run just the frontend build folder
 cd client && npm run build && npm run static
 ```
 
