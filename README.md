@@ -72,15 +72,21 @@ cd client && npm run client
 # Run just the frontend build folder
 cd client && npm run build && npm run static
 ```
+<<<<<<< HEAD
 Backend dev server default: http://localhost:5000
 
 Frontend dev server default: http://localhost:3000
+=======
+**Backend dev server default:** http://localhost:5000
+
+**Frontend dev server default:** http://localhost:3000
+>>>>>>> 2aa5656700a03c980d91fd770fdc11b80656fed1
 
 ---
 
 ### Heroku:
-Backend Nodejs-Express Rest API: https://mern-mapping-project-backend.herokuapp.com/
+**Backend Nodejs-Express Rest API:** https://mern-mapping-project-backend.herokuapp.com
 
-Frontend React App: https://mern-mapping-project.herokuapp.com/
+**Frontend React App:** https://mern-mapping-project.herokuapp.com
 
 
