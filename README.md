@@ -77,5 +77,8 @@ Frontend dev server default: http://localhost:3000
 
 ---
 
+### Heroku:
+Backend Nodejs-Express Rest API: https://mern-mapping-project-backend.herokuapp.com/
+Frontend React App: https://mern-mapping-project.herokuapp.com/
 
 
