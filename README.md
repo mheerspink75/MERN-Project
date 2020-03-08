@@ -72,6 +72,8 @@ cd client && npm run client
 # Run just the frontend build folder
 cd client && npm run build && npm run static
 ```
+Backend dev server default: http://localhost:5000
+Frontend dev server default: http://localhost:3000
 
 ---
 
