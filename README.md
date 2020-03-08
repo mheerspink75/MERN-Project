@@ -11,6 +11,8 @@
 
 ## Abstract:  
 
+Full-Stack MERN Photo-Mapping application combining Create React App frontend with Nodejs-Express REST API backend and MongoDB Atlas cloud database.  The Photo-Mapping application integrates external Geocoding, Maps and Places APIs from Google Cloud Platform.  Users are required to upload a profile image during account registration. Once authenticated, users can create, update and delete their photo blog entries.  User authentication, a blog post image and a valid address is required when a blog entry is created.  The backend REST API retrieves blog post location data from Google Cloud Platform. The REACT App frontend then renders a map to the location. The REST API backend and REACT App front end are deployed separately as stand-alone apps on Heroku.  The code to develop this App was primarily taken from lectures created by Maximilian Schwarzmüller then updated and combined with code inspired by lectures created by Brad Traversy.
+
 ---
 
 **Install instructions**
@@ -70,8 +72,5 @@ cd client && npm run build && npm run static
 
 ---
 
-### Development Phase:
-
-**1.** Created Github repository [MERN-Project](https://github.com/mheerspink75/MERN-Project)
 
 
