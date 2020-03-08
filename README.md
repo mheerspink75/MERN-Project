@@ -34,13 +34,14 @@ npm install && cd client && npm install
 ```
 cd .. && touch nodemon.json
 ```
-**6.**  Add your MongoDB Atlas connection string and Google API key to the nodemon.json file.
+**6.**  Add your MongoDB Atlas connection string, Google API and JWT keys to the nodemon.json file.
 ```bash
 # Add this script to nodemon.json
 {
     "env": {
         "GOOGLE_API_KEY": "<YoUrApIkEy>",
-        "ATLAS_URI": "mongodb+srv://<username>:<password>@cluster0-wqcxx.gcp.mongodb.net/places?retryWrites=true&w=majority"
+        "ATLAS_URI": "mongodb+srv://<username>:<password>@cluster0-wqcxx.gcp.mongodb.net/places?retryWrites=true&w=majority",
+        "JWT_KEY": "<jWtKeY>"
     }
 }
 ```
